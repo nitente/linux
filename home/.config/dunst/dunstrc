@@ -1,0 +1,41 @@
+[global]
+        #font = inconsolata 14px
+        #font = dina bold 12px
+        font = tamsyn bold 14px
+        #font = dejavu sans mono bold 9
+        format = "%s %b"
+        #format = "<b>%s\n%b</b>"
+        indicate_hidden = yes
+        alignment = center
+        word_wrap = yes
+        ignore_newline = no
+        geometry = "410x10-11+31" 
+        transparency = 5
+        follow = mouse
+        padding = 10
+        horizontal_padding = 2
+        dmenu = /home/m/.config/.i3/dmenuwrapper -p dunst:
+
+        stick_history = yes
+        history_length = 20
+        show_indicators = yes
+        separator_height = 2
+
+[frame]
+        width = 2
+        color = "#000000"
+
+[urgency_low]
+        background = "eeeeee"
+        foreground = "303030"
+        timeout = 10
+
+[urgency_normal]
+        background = "#eeeeee"
+        foreground = "303030"
+        timeout = 10
+
+[urgency_critical]
+         background = "#151515"
+         foreground = "#f4bf75"
+         timeout = 10

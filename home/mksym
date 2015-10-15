@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# linux/home in the home folder
+ln -vsfi /home/$USER/linux/home/.bash_profile /home/$USER/
+ln -vsfi /home/$USER/linux/home/.bashrc /home/$USER/
+ln -vsfi /home/$USER/linux/home/.compton.conf /home/$USER/
+ln -vsfi /home/$USER/linux/home/.dircolors /home/$USER/
+ln -vsfi /home/$USER/linux/home/.dirname /home/$USER/
+ln -vsfi /home/$USER/linux/home/.hushlogin /home/$USER/
+ln -vsfi /home/$USER/linux/home/.inputrc /home/$USER/
+ln -vsfi /home/$USER/linux/home/.vimrc /home/$USER/
+ln -vsfi /home/$USER/linux/home/.xinitrc /home/$USER/
+ln -vsfi /home/$USER/linux/home/.Xresources /home/$USER/
+
+ln -vsfi /home/$USER/linux/home/ins.txt /home/$USER/
+
+# i3 folder
+ln -vsfi /home/$USER/linux/home/.i3 /home/$USER/
+
+# .vim folder
+ln -vsfi /home/$USER/linux/home/.vim /home/$USER/
+
+# .moc folder
+
+if [[ -n $(ls -a /home/$USER/ | grep .moc) ]]; then 
+  $(ln -vsfi /home/$USER/linux/home/.moc/themes /home/$USER/.moc/); else 
+  $(mkdir /home/$USER/.moc) $(ln -vsfi /home/$USER/linux/home/.moc/themes /home/$USER/.moc/); 
+fi
+
+# sh folder
+ln -vsfi /home/$USER/linux/home/sh /home/$USER/

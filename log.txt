@@ -1,0 +1,4 @@
+Change 'flat-volumes = yes' in /etc/pulse/daemon.conf
+Change 'HandlPowerKey' and 'HandleLidSwitch' in /etc/systemd/logind.conf
+
+Make a symlink /home/$USER/sh/battery_monitor_loop /home/$USER/bin

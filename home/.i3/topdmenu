@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# light bg
+  FGSELECT="#ffffff"
+  BGSELECT="#000000"
+  FG="#000000"
+  BG="#ffffff"
+
+# dark bg
+  #FGSELECT="#101010"
+  #BGSELECT="#ffffff"
+  #FG="#ffffff"
+  #BG="#101010"
+
+# font
+#FONT="inconsolata:pixelsize=14"
+#FONT="dina:bold:pixelsize=12"
+FONT="tamsyn:bold:pixelsize=14"
+#FONT="dejavusansmono:size=9:bold"
+
+# bottom
+  #dmenu_run -b -q -i -h 19 -fn ${FONT} -nb $BG -nf $FG -sf $FGSELECT -sb $BGSELECT -p @ -dim .85
+
+# top
+  dmenu_run -q -i -h 19 -fn ${FONT} -nb $BG -nf $FG -sf $FGSELECT -sb $BGSELECT -p @ -dim .85

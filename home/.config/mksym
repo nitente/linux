@@ -1,0 +1,14 @@
+#!/bin/bash
+
+ln -vsfi /home/$USER/linux/home/.config/dunst /home/$USER/.config/
+ln -vsfi /home/$USER/linux/home/.config/fontconfig /home/$USER/.config/
+ln -vsfi /home/$USER/linux/home/.config/gtk-2.0 /home/$USER/.config/
+ln -vsfi /home/$USER/linux/home/.config/gtk-3.0 /home/$USER/.config/
+ln -vsfi /home/$USER/linux/home/.config/i3status /home/$USER/.config/
+ln -vsfi /home/$USER/linux/home/.config/ranger /home/$USER/.config/
+
+ln -vsfi /home/$USER/linux/home/.config/user-dirs.dirs /home/$USER/.config/
+ln -vsfi /home/$USER/linux/home/.config/youtube-dl.conf /home/$USER/.config/
+
+ln -vsfi /home/$USER/linux/home/.config/zathura /home/$USER/.config/
+ln -vsfi /home/$USER/linux/home/.config/mpv /home/$USER/.config/

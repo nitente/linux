@@ -1,0 +1,14 @@
+#All this configuration was taken from the manual.
+#You can access it with 'man mpv' in your terminal.
+
+--no-sub-ass
+--idle='yes'
+--osd-color='#FFFFF0'
+--osd-font-size='11'
+--osd-scale='3'
+--osd-font='Liberation Serif'
+--sub-text-font='Liberation Serif'
+--sub-text-font-size='11'
+--sub-text-color='#FFFF00'
+--sub-scale='3'
+--osc='no'

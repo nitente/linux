@@ -1,0 +1,4 @@
+if [[ -n $(ls -a /home/$USER/ | grep bin) ]]; then
+  echo "yes"; else
+  echo "no";
+fi

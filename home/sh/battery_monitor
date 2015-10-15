@@ -1,0 +1,34 @@
+#! /bin/bash
+
+SLEEP_TIME=5
+
+while [ true ]; do
+  if [[ -n $(acpi -b | grep -i "dis") ]]; then
+    rem_perc=$(acpi -b | grep -i "dis" | awk '{print $(NF-2)}' | tr -d ',%')
+
+  if [[ $rem_perc -gt 30 ]]; then
+    SLEEP_TIME=10
+  fi
+
+  if [[ $rem_perc -le 30 ]]; then
+    SLEEP_TIME=5
+      notify-send "Battery low. There is ${rem_perc}% left." 2>&1 > /dev/null
+  fi
+  
+  if [[ $rem_perc -le 20 ]]; then
+    SLEEP_TIME=2
+  fi
+
+  if [[ $rem_perc -le 15 ]]; then
+    SLEEP_TIME=1
+    when=now
+    if [[ $rem_perc -gt 0 ]]; then
+      when="+$rem_perc"
+    fi
+    
+    exec systemctl suspend
+    fi
+  fi
+
+  sleep ${SLEEP_TIME}m
+done

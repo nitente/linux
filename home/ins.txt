@@ -1,0 +1,294 @@
+// this is not a tutorial
+// this is for my future reference to see what will change
+// in the way arch linux is installed
+// you can use this for your own installation
+// but i can't guarantee your success
+
+// Monday 10 August 2015, 11:41:51
+
+/* INSTALLATION BASE SYSTEM */
+
+$ pacman -S tmux unzip
+$ wget https://github.com/nitente/linux/archive/master.zip
+$ unzip master.zip
+
+$ tmux
+
+// set keyboard
+$ localectl list-keymaps
+$ loadkeys 'your_key_map'
+
+// internet connection
+$ wifi-menu
+$ ping -c1 www.google.com
+-- // or you can do it manually
+$ cd /etc/netctl
+$ cp examples/wireless-wpa .
+$ ip a
+$ wpa_passphrase 'ssid' 'psk'
+$ vim wireless-wap // replace 'wlps0' with the name provided by 'ip a' and add the values from the command above
+$ netctl start wireless-wpa
+
+// clean disk; if there's other partitions you want to keep skip this step
+$ sgdisk --zap-all /dev/sda
+$ fdisk -l
+
+// create partition table
+$ cfdisk /dev/sda // use extended partition, type 82 for swap and 83 for home, root, var
+$ fdisk -l
+
+// create file system
+$ mkfs.ext4 /dev/sda2 // root
+$ mkfs.ext4 /dev/sda3 // home
+$ mkfs.ext4 /dev/sda4 // var
+$ mkswap /dev/sda1 // swap
+$ swapon /dev/sda1
+$ swapon -s
+
+// mount partitions
+$ mount /dev/sda2 /mnt 
+$ mkdir /mnt/home
+$ mkdir /mnt/var
+$ mount /dev/sda3 /mnt/home
+$ mount /dev/sda4 /mnt/var
+
+// select mirror
+$ vim /etc/pacman.d/mirrolist // put the links of your country above the others
+
+// install base system
+$ pacstrap /mnt base base-devel git gvim 'grub or syslinux'
+
+// generate fstab
+$ genfsta -U -p /mnt >> /mnt/etc/fstab
+$ vim /mnt/etc/fstab // only for checking
+
+// configurate base system
+$ arch-chroot /mnt
+
+// timezone
+$ ls /usr/share/zoneinfo
+$ ln -s /usr/share/zoneinfo/'your_country'/'your_region' /etc/localtime
+
+// hardware clock
+$ hwclock --systohc --utc
+
+// hostname
+$ echo 'your_hostname'> /etc/hostname
+$ vim /etc/hosts // replace 'localhost' with 'your_hostname' // there's no need for this anymore 
+
+// install wireless packages
+$ pacman -S wireless_tools wpa_supplicant wpa_actiond dialog
+-- // if using network manager
+$ pacman -S networkmanager
+
+// configure pacman
+$ vim /etc/pacman.conf // uncomment '[multilib]' and 'include = /etc/pacmand.d/mirrorlist'
+$ pacman -Sy
+
+// add user
+$ useradd -m -g users -G wheel,storage,power -s /bin/bash 'your_username'
+$ passwd 'your_username' // password for the user
+$ passwd // password for the root
+
+// allow user to use sudo
+$ EDITOR=vim visudo // uncomment '&wheels' or add "'your_username' ALL=(ALL) ALL" under 'root ALL=(ALL) ALL'
+
+// install grub
+  // if grub
+$ grub-install /dev/sda // if dual boot install 'os-prober' and run '$ os-prober' after '$ grub-install'
+$ grub-mkconfig -o /boot/grub/grub.cfg
+  // if syslinux
+$ syslinux-install_update -i -a -m
+
+// finish installation
+$ exit
+$ umount /dev/sda4
+$ umount /dev/sda3
+$ umount /dev/sda2
+$ reboot
+
+/* SYSTEM CONFIGURATION */
+
+// login
+// setup keyboard
+$ localectl list-keymaps
+$ sudo localectl set-keymap 'your_key_map'
+
+// setup locale
+$ sudo vim /etc/locale.gen // uncomment 'yout_locale.UTF-8 UTF-8'
+$ sudo locale-gen
+$ sudo localectl set-locale LANG="your_locale.UTF-8"
+
+// set up resume from hibernation
+$ sudo vim /etc/default/grub // add the swap partition 'resume=/dev/sda1' in GRUB_CMDLINE_LINUX="" 
+$ sudo grub-mkconfig -o /boot/grub/grug.cfg
+$ sudo vim /etc/mkinitcpio.conf // add 'resume' in the uncommented 'HOOKS' line before 'filesystems'
+$ sudo mkinitcpio -p linux
+
+// setup internet
+// wifi
+$ cd /etc/netctl
+$ sudo cp examples/wireless-wpa .
+$ sudo wpa_passphrase 'ssid' 'psk'
+$ ip a
+$ sudo vim wireless-wpa // replace wlps0 with the name provided by 'ip a' and copy the 'ssid' and the key generated above
+$ sudo netctl start wireless-wpa
+$ sudo netctl enable wireless-wpa
+-- // if using network manager
+$ sudo systemctl enable NetworkManager
+$ sudo systemctl start NetworkManager
+$ nmcli dev wifi
+$ nmcli dev wifi connect 'ssid' password 'psk'
+// ethernet
+$ ip a
+$ sudo systemctl enable dhcpd.service // if needed
+$ sudo cp /etc/netctl/examples/ethernet-dhcp /etc/netctl
+$ sudo vim /etc/netctl/ethernet-dhcp // replace eth0 with the name provided by 'ip a'
+
+// enable aur
+$ sudo pacman -S wget
+$ mkdir tmp && cd tmp
+$ wget https://aur.archlinux.org/cgit/aur.git/snapshot/cower.tar.gz
+$ tar -xvf cower.tar.gz
+$ cd cower && makepkg -sri // if there's a gpg error '$ makepkg -sri --skippgpcheck'
+-- // or use links to retrieve the snapshot
+$ sudo pacman -S links
+$ mkdir tmp && cd tmp
+$ links aur4.archlinux.org/packages // search for cower and download the snapshot, save it in ~/tmp/
+$ tar -xvf cower.tar.gz
+$ cd cower && makepkg -sri // if there's a gpg error '$ makepkg -sri --skippgpcheck'
+
+// setup essentials
+$ sudo pacman -S alsa-utils pulseaudio pulseaudio-alsa xorg-server xorg-xinit xorg-server-utils xorg-xprop xterm rxvt-unicode dmenu unzip unrar links mesa ttf-dejavu ttf-droid dina-font tamsyn-font xf86-video-intel xf86-input-synaptics ntfs-3g // if needed samba smbclient gvfs gvfs-smb gvfs-mtp sshfs 
+
+// all programs in one command
+$ sudo pacman -S i3-wm i3lock i3status ranger w3m bc dunst libnotify moc faad2 ffmpeg libmpcdec taglib wavpack livestreamer streamripper youtube-dl chromium 
+
+// window manager
+$ sudo pacman -S i3-wm i3lock i3status
+
+// file manager
+$ sudo pacman -S ranger w3m wget atool mediainfo zip rar p7zip unzip unrar
+
+// notification
+$ sudo pacman -S dunst libnotify bc
+
+// system utils
+$ sudo pacman -S acpi htop powertop lm_sensors tlp lsb-release rsync
+-- // start tlp
+$ sudo tlp start
+$ sudo systemctl start tlp.service
+$ sudp systemctl enable tlp.service
+
+// antivirus
+$ sudo pacman -S clamav
+
+// firewall
+$ sudo pacman -S ufw
+$ sudo ufw enable
+$ sudo systemctl enable ufw.service
+$ sudo ufw default deny
+$ sudo ufw allow from 'lan'
+$ sudo ufw allow transmission
+
+// media
+$ sudo pacman -S moc faad2 ffmpeg libmpcdec taglib wavpack
+$ sudo pacman -S livestreamer streamripper youtube-dl mp3splt
+$ sudo pacman -S mpv
+$ cower -d spotify libgcrypt15 ffmpeg-compat
+
+// browser
+$ sudo pacman -S chromium
+
+// image viewer
+$ sudo pacman -S feh
+
+// gtk theme
+$ sudo pacman -S lxappearance
+$ sudo pacman -S faenza-icon-theme
+
+// torrent
+$ sudo pacman -S transmission-remote-cli
+
+// document viewer
+$ sudo pacman -S mupdf zathura zathura-pdf-mupdf libreoffice-fresh
+
+// screencapture
+$ sudo pacman -S scrot
+
+// ebook
+$ sudo pacman -S calibre
+
+// games
+$ sudo pacman -S dwarffortress lib32-libpulse rogue nethack stone-soup
+$ cower -d libtcod brogue doomrl hydraslayer
+
+// ps3 controller
+$ cower -d xboxdrv
+$ sudo xboxdrv -sd
+
+// fonts
+$ sudo pacman -S ttf-droid ttf-ubuntu-font-family ttf-inconsolata ttf-liberation ttf-baekmuk
+	\ ttf-hannom wqy-microhei-lite ttf-freefont ttf-arphic-uming ttf-tibetan-machine ttf-indic-otf ttf-tlwg
+$ cower -d ttf-ms-fonts
+
+startx
+
+/* USEFUL COMMANDS */
+
+// udisks
+$ sudo pacman -S udisks
+$ udisks --mount /dev/sdb1
+$ udisks --unmount /dev/sdb1
+$ udisks --detach /dev/sdb
+
+// ntpd
+$ sudo pacman -S ntp
+$ sudo ntpd -qg && sudo hwclock --systohc
+
+// youtube-dl
+$ youtube-dl -F 'url' // print all available formats
+$ youtube-dl -f 'xx' 'url' // where 'xx' is the format number from above
+-- // extract audio
+$ youtube-dl --extract-audio --audio-format mp3 'url'
+
+// mp3splt
+$ mp3splt -s '.mp3'
+-- // number of tracks
+$ mp3splt -s -p nt='number' '.mp3'
+
+// rename file name from file
+for file in *.mp3; do read line;  mv -v "${file}" "${line}";  done < 'file'
+
+// hdmi audio
+$ pactl set-card-profile <TAB><TAB>
+
+// pulseaudio
+$ sudo vim /etc/pulse/daemon.conf // uncomment 'flat-volumes = no'
+$ pulseaudio --kill
+$ pulseaudio --start
+
+// xrandr
+$ xrandr --output 'display' --mode 'wxh' --'orientation' 'display'
+-- // $ xrandr --output 'HDMI' --mode 1920x1080 --bellow LVDS1
+$ xrandr --output 'display' --off
+
+// xset
+$ xset -dpms && xset s off
+$ xset m 1/1 4
+
+// lm-sensors
+$ sensors-detect
+$ sensors
+
+// livestreamer
+$ livestreamer -p mpv 'url' source
+
+// vbetool
+$ sudo pacman -S vbetool
+$ sudo vbetool -dpms on
+$ sudo vbetool -dpms off
+
+// rsync
+$ rsync -rnuvh --progress 'dir/' or 'dir' 'dir2'
+$ rsync -anuvh --progress 'dir/' or 'dir' 'dir2'

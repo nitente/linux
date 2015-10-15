@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Figure out current screen size if you're using only one monitor.
+#SCREENWIDTH=$(xrandr -q | grep Screen | awk '{print $8}')
+#SCREENHEIGHT=$(xrandr -q | grep Screen | awk '{print $10}' | sed s/,//)
+
+# Figure out current screen size. LVDS1 is the name of the monitor. Change it for the one you're using.
+SCREENWIDTH=$(xrandr -q | grep LVDS1 | awk '{print $3}' | awk -F"x" '{print $1}')
+SCREENHEIGHT=$(xrandr -q | grep LVDS1 | awk '{print $3}' | awk -F"x" '{print $2}' | cut -d\+ -f1)
+
+# How close to the screen edges do we begin/end?
+EDGEWIDTH=50
+DMENUWIDTH=$(($SCREENWIDTH - $(($EDGEWIDTH + $EDGEWIDTH))))
+WIDTH=$(($SCREENWIDTH / 2))
+
+# dmenu X/Y coordinates
+XPOS=$EDGEWIDTH
+YPOS=$(($(($SCREENHEIGHT / 2)) - 15))
+
+FGSELECT="#151515"
+BGSELECT="#90a959"
+FG="#f4bf75"
+BG="#151515"
+#FONT="fixed-10.5:bold"
+FONT="consolas-10"
+
+dmenu_run -s 0 -q -i -w $DMENUWIDTH -y $YPOS -x $XPOS -fn ${FONT} -nb $BG -nf $FG -sf $FGSELECT -sb $BGSELECT -p @ -dim .85

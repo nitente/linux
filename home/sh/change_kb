@@ -1,0 +1,11 @@
+#!/bin/bash
+
+key_current=`setxkbmap -query | grep layout | awk '{print $2}'`
+key_us='setxkbmap us -variant intl'
+key_br='setxkbmap br'
+
+if [[ $key_current == br ]]
+  then exec $key_us; else
+  if [[ $key_current == us ]]
+    then exec $key_br;
+     fi fi

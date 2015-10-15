@@ -1,0 +1,8 @@
+#
+# This file is parsed by pam_env module
+#
+# Syntax: simple "KEY=VAL" pairs on separate lines
+#
+# This will make the QT applications look more uniforme with the GKT ones
+
+QT_STYLE_OVERRIDE=GTK+

@@ -1,0 +1,70 @@
+!\ @xterm
+xterm*faceName: tamsyn:pixelsize=14:bold:antialias=false
+xterm*faceNameDoublesize: wenquanyimicroheimonolight:pixelsize=12:bold:antialias=false
+xterm*allowBoldFonts: true
+xterm*termName: xterm-256color
+xterm*locale: true
+xterm*geometry:   80x30
+xterm*bellIsUrgent: true
+xterm*borderWidth: 0
+xterm*saveLines: 12000
+xterm*trimSelection: true
+
+!\ @urxvt
+URxvt*.cursorUnderline: false
+URxvt*.cursorBlink: true
+URxvt*.scrollBar: false
+URxvt*.mouseWheelScrollPage: true
+!URxvt*.font: xft:dejavusansmono:size=9:antialias=true
+!URxvt*.boldFont: xft:dejavusansmono:size=9:antialias=true
+URxvt*.font: xft:tamsyn:bold:pixelsize=14,xft:terminus:pixelsize=14
+URxvt*.boldFont: xft:tamsyn:bold:pixelsize=14,xft:terminus:pixelsize=14
+!URxvt*.font: xft:inconsolata:pixelsize=14,xft:dina:bold:pixelsize=12,xft:tamsyn:bold:pixelsize=14,xft:terminus:pixelsize=14
+!URxvt*.boldFont: xft:inconsolata:pixelsize=14,xft:dina:bold:pixelsize=12,xft:tamsyn:pixelsize=14,xft:terminus:bold:pixelsize=14
+URxvt*.geometry: 80x30
+URxvt*.letterSpace: 0
+URxvt*.saveLines: 32767
+!URxvt*.internalBorder: 9
+
+!\ @terminal fonts
+Xft.autohint: 0
+Xft.antialias: 1
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.dpi: 96
+Xft.rgba: rgb
+Xft.lcdfilter: lcddefault
+
+!\ @colors
+*.foreground:   #303030
+*.background:   #ffffff
+*.cursorColor:  #303030
+
+!*.foreground:   #ffffff
+!*.background:   #101010
+!*.cursorColor:  #ffffff
+
+! black
+*.color0:       #000000
+*.color8:       #303030
+! red
+*.color1:       #ab5959
+*.color9:       #ab5959
+! green
+*.color2:       #59ab6a
+*.color10:      #59ab6a
+! yellow
+*.color3:       #aba859
+*.color11:      #aba859
+! blue
+*.color4:       #598cab
+*.color12:      #598cab
+! magenta
+*.color5:       #59ab9b
+*.color13:      #59ab9b
+! cyan
+*.color6:       #5977ab
+*.color14:      #5977ab
+! white
+*.color7:       #999999
+*.color15:      #aaaaaa
