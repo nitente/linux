@@ -15,14 +15,14 @@ URxvt*.cursorUnderline: false
 URxvt*.cursorBlink: true
 URxvt*.scrollBar: false
 URxvt*.mouseWheelScrollPage: true
-!URxvt*.font: xft:dejavusansmono:size=9:antialias=true
-!URxvt*.boldFont: xft:dejavusansmono:size=9:antialias=true
-URxvt*.font: xft:tamsyn:bold:pixelsize=14,xft:terminus:pixelsize=14
-URxvt*.boldFont: xft:tamsyn:bold:pixelsize=14,xft:terminus:pixelsize=14
+URxvt*.font: xft:dejavusansmono:size=9:antialias=true
+URxvt*.boldFont: xft:dejavusansmono:size=9:antialias=true
+!URxvt*.font: xft:tamsyn:bold:pixelsize=14,xft:terminus:pixelsize=14
+!URxvt*.boldFont: xft:tamsyn:bold:pixelsize=14,xft:terminus:pixelsize=14
 !URxvt*.font: xft:inconsolata:pixelsize=14,xft:dina:bold:pixelsize=12,xft:tamsyn:bold:pixelsize=14,xft:terminus:pixelsize=14
 !URxvt*.boldFont: xft:inconsolata:pixelsize=14,xft:dina:bold:pixelsize=12,xft:tamsyn:pixelsize=14,xft:terminus:bold:pixelsize=14
 URxvt*.geometry: 80x30
-URxvt*.letterSpace: 0
+URxvt*.letterSpace: -2
 URxvt*.saveLines: 32767
 !URxvt*.internalBorder: 9
 

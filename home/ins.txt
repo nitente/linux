@@ -161,6 +161,9 @@ $ cd cower && makepkg -sri // if there's a gpg error '$ makepkg -sri --skippgpch
 // setup essentials
 $ sudo pacman -S alsa-utils pulseaudio pulseaudio-alsa xorg-server xorg-xinit xorg-server-utils xorg-xprop xterm rxvt-unicode dmenu unzip unrar links mesa ttf-dejavu ttf-droid dina-font tamsyn-font xf86-video-intel xf86-input-synaptics ntfs-3g // if needed samba smbclient gvfs gvfs-smb gvfs-mtp sshfs 
 
+// audio
+$ sudo pacman -S alsa-firmware alsa-lib alsa-plugins alsa-utils lib32-alsa-lib lib32-alsa-plugins pulseaudio pulseaudio-alsa lib32-libpulse libcanberra-pulse libpulse lib32-openal openal
+
 // all programs in one command
 $ sudo pacman -S i3-wm i3lock i3status ranger w3m bc dunst libnotify moc faad2 ffmpeg libmpcdec taglib wavpack livestreamer streamripper youtube-dl chromium 
 

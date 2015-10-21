@@ -1,8 +1,8 @@
 [global]
         #font = inconsolata 14px
         #font = dina bold 12px
-        font = tamsyn bold 14px
-        #font = dejavu sans mono bold 9
+        #font = tamsyn bold 14px
+        font = dejavu sans mono bold 9
         format = "%s %b"
         #format = "<b>%s\n%b</b>"
         indicate_hidden = yes

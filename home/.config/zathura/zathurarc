@@ -1,8 +1,8 @@
 # config
 #set font "dina bold 9"
-set font "tamsyn bold 10.5"
+#set font "tamsyn bold 10.5"
 #set font "inconsolata 10.5"
-#set font "dejavu sans mono bold 9"
+set font "dejavu sans mono bold 9"
 
 # colors
 set default-bg \#ffffff

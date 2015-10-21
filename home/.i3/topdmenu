@@ -15,8 +15,8 @@
 # font
 #FONT="inconsolata:pixelsize=14"
 #FONT="dina:bold:pixelsize=12"
-FONT="tamsyn:bold:pixelsize=14"
-#FONT="dejavusansmono:size=9:bold"
+#FONT="tamsyn:bold:pixelsize=14"
+FONT="dejavusansmono:size=9:bold"
 
 # bottom
   #dmenu_run -b -q -i -h 19 -fn ${FONT} -nb $BG -nf $FG -sf $FGSELECT -sb $BGSELECT -p @ -dim .85
