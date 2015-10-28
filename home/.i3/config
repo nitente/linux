@@ -14,7 +14,7 @@ new_window pixel 3
 new_float pixel 3
 
 # If using i3-gaps-git from the aur.archlinux.org
-gaps inner 5
+#gaps inner 5
 
 # Open in a specific workspace :: use 'xprop' to find the class of a window
  
@@ -115,7 +115,7 @@ font pango: dejavu sans mono bold 9
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec xterm
 bindsym $mod+Shift+Return exec urxvt -fn "xft:dejavusansmono:size=11" -fb "xft:dejavusansmono:size=11" -letsp "-2"
 
 bindsym $mod+F12 exec `sleep 1 && xset dpms force off`

@@ -56,7 +56,7 @@ $ mount /dev/sda4 /mnt/var
 $ vim /etc/pacman.d/mirrolist // put the links of your country above the others
 
 // install base system
-$ pacstrap /mnt base base-devel git gvim 'grub or syslinux'
+$ pacstrap /mnt base base-devel git gvim tmux 'grub or syslinux'
 
 // generate fstab
 $ genfsta -U -p /mnt >> /mnt/etc/fstab

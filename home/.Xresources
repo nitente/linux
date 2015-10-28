@@ -1,5 +1,5 @@
 !\ @xterm
-xterm*faceName: tamsyn:pixelsize=14:bold:antialias=false
+xterm*faceName: dejavusansmono:pixelsize=12:bold:antialias=false
 xterm*faceNameDoublesize: wenquanyimicroheimonolight:pixelsize=12:bold:antialias=false
 xterm*allowBoldFonts: true
 xterm*termName: xterm-256color
@@ -27,13 +27,13 @@ URxvt*.saveLines: 32767
 !URxvt*.internalBorder: 9
 
 !\ @terminal fonts
-Xft.autohint: 0
-Xft.antialias: 1
-Xft.hinting: true
-Xft.hintstyle: hintslight
-Xft.dpi: 96
-Xft.rgba: rgb
-Xft.lcdfilter: lcddefault
+!Xft.autohint: 0
+!Xft.antialias: 1
+!Xft.hinting: true
+!Xft.hintstyle: hintmedium
+!Xft.dpi: 96
+!Xft.rgba: rgb
+!Xft.lcdfilter: lcddefault
 
 !\ @colors
 *.foreground:   #303030
