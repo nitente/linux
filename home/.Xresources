@@ -1,7 +1,7 @@
 !\ @xterm
-xterm*faceName: dejavusansmono:pixelsize=12:bold:antialias=false
+xterm*faceName: dejavusansmono:pixelsize=13:antialias=false
 xterm*faceNameDoublesize: wenquanyimicroheimonolight:pixelsize=12:bold:antialias=false
-xterm*allowBoldFonts: true
+xterm*allowBoldFonts: false
 xterm*termName: xterm-256color
 xterm*locale: true
 xterm*geometry:   80x30

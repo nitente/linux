@@ -12,3 +12,6 @@ ln -vsfi /home/$USER/linux/home/.config/youtube-dl.conf /home/$USER/.config/
 
 ln -vsfi /home/$USER/linux/home/.config/zathura /home/$USER/.config/
 ln -vsfi /home/$USER/linux/home/.config/mpv /home/$USER/.config/
+
+ln -vsfi /home/$USER/linux/home/.config/bspwm /home/$USER/.config/
+ln -vsfi /home/$USER/linux/home/.config/sxhkd /home/$USER/.config/
