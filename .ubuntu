@@ -1,0 +1,153 @@
+# add a {}
+# modification m {}
+
+# .config/i3/config
+m {
+    font pango:monospace 8
+    font pango:terminus 9
+
+    ...dmenu_run
+    ...dmenu_run -b -l 3 -fn "terminus-9" -nb "#000000" -nf "#ffffff" -sb "#ffffff" -sf "#000000"
+  }
+
+# .xinitrc
+m {
+    . /etc/X11/Xsession
+    #. /etc/X11/Xession
+  }
+a {
+    xrdb -merge $HOME/.Xresources
+
+    xsetroot -cursor_name left_ptr &
+    xset r rate 200 60 &
+    xset m 1/1 4 &
+    sleep 1 && sh $HOME/.fehbg &
+    sleep 1 && compton &
+    exec i3;
+  }
+
+# .Xresources
+a {
+    xterm*faceName: terminus:size=9
+
+    ! black
+    *.color0:       #000000
+    *.color8:       #303030
+    ! red
+    *.color1:       #ab5959
+    *.color9:       #ab5959
+    ! green
+    *.color2:       #59ab6a
+    *.color10:      #59ab6a
+    ! yellow
+    *.color3:       #aba859
+    *.color11:      #aba859
+    ! blue
+    *.color4:       #598cab
+    *.color12:      #598cab
+    ! magenta
+    *.color5:       #59ab9b
+    *.color13:      #59ab9b
+    ! cyan
+    *.color6:       #5977ab
+    *.color14:      #5977ab
+    ! white
+    *.color7:       #999999
+    *.color15:      #aaaaaa
+    
+    !\ @terminal fonts
+    Xft.autohint: 0
+    Xft.antialias: 1
+    Xft.hinting: true
+    Xft.hintstyle: hintslight
+    Xft.dpi: 96
+    Xft.rgba: rgb
+    Xft.lcdfilter: lcddefault
+
+  }
+
+# /etc/profile
+a {
+    PATH="$PATH:/home/$USER/sh"
+  }
+
+# /etc/default/grub
+m {
+    GRUB_HIDDEN_TIMEOUT=0
+    GRUB_HIDDEN_TIMEOUT=2
+
+    GRUB_TIMEOUT=10
+    GRUB_TIMEOUT=0
+ 
+    GRUB_CMDLINE_LINUX_DEFAULT="splash quiet"
+    GRUB_CMDLINE_LINUX_DEFAULT=""
+  }
+
+$ grub-mkconfig -o /boot/grug/grub.cfg
+
+# /etc/environment
+a {
+    QT_STYLE_OVERRIDE=GTK+
+  }
+
+# .config/zathura/zathurarc
+a {
+    set font "terminus 9"
+    set guioptions "--"
+  }
+
+# .config/ranger/rc.conf
+$ ranger --copy-config=all
+m {
+    set preview_images false
+    set preview_images true
+  }
+
+# .config/ranger/rifle.conf
+m {
+    ...sxiv -- "$@"
+    ...sxiv -b -g 1280x720 -- "$@"
+  }
+
+# .config/i3/config
+a {
+    # change sound
+    bindsym XF86AudioRaiseVolume exec amixer -q set Master 3%+ unmute
+    bindsym XF86AudioLowerVolume exec amixer -q set Master 3%- unmute
+    bindsym XF86AudioMute exec amixer -q set Master toggle
+
+    # remove title bar
+    new_window 1pixel
+
+    # make a program run floating (use xprop to find the class of a window)
+    for_window [class="Sxiv"] floating enable
+  }
+
+# installed applications
+$ apt install udisks2
+$ apt install xorg xinit i3
+$ apt install chromium-browser
+$ apt install compton 
+$ apt install aptitude
+$ apt install ranger w3m sxiv zathura feh
+$ apt install alsa-base alsa-firmware-loaders alsa-utils
+$ apt install gvim
+$ apt install mpv moc
+$ apt install gcc make
+$ apt install calibre
+$ apt install libreoffice
+$ apt install fonts-noto
+$ apt install fonts-inconsolata
+$ apt install fonts-symbola
+$ apt install xfonts-terminus
+$ dpkg -i google-chrome-*
+  $ apt-get install -f # to correct some lib dependencies
+$ apt install kdenlive
+
+$ apt install ppa-purge
+$ apt install software-properties-common
+$ add-apt-repository ppa:obsproject/obs-studio
+$ apt install obs-studio
+
+# eval $(cat ubuntu | grep "sudo apt install" | sed -n 2p)
+sudo apt install aptitude xorg xinit udisks2 i3 ranger w3m sxiv zathura feh gvim mpv moc calibre libreoffice fonts-noto fonts-inconsolata fonts-symbola xfonts-terminus compton alsa-base alsa-firmware-loaders alsa-utils chromium-browser calibre gcc make
