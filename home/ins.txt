@@ -1,11 +1,3 @@
-// this is not a tutorial
-// this is for my future reference to see what will change
-// in the way arch linux is installed
-// you can use this for your own installation
-// but i can't guarantee your success
-
-// Monday 10 August 2015, 11:41:51
-
 /* INSTALLATION BASE SYSTEM */
 
 $ pacman -S tmux unzip
@@ -19,48 +11,49 @@ $ localectl list-keymaps
 $ loadkeys 'your_key_map'
 
 // internet connection
-$ wifi-menu
-$ ping -c1 www.google.com
+$ wifi-menu -o
+$ ping -c1 www.ddg.gg
 -- // or you can do it manually
 $ cd /etc/netctl
 $ cp examples/wireless-wpa .
 $ ip a
 $ wpa_passphrase 'ssid' 'psk'
-$ vim wireless-wap // replace 'wlps0' with the name provided by 'ip a' and add the values from the command above
+$ vi wireless-wap // replace 'wlps0' with the name provided by 'ip a' and add the values from the command above
 $ netctl start wireless-wpa
 
-// clean disk; if there's other partitions you want to keep skip this step
+// clean disk; if there're other partitions you want to keep skip this step
 $ sgdisk --zap-all /dev/sda
 $ fdisk -l
 
 // create partition table
-$ cfdisk /dev/sda // use extended partition, type 82 for swap and 83 for home, root, var
+$ cfdisk /dev/sda // use extended partition, type 82 for swap and 83 for home, root, var, boot
 $ fdisk -l
 
 // create file system
 $ mkfs.ext4 /dev/sda2 // root
-$ mkfs.ext4 /dev/sda3 // home
-$ mkfs.ext4 /dev/sda4 // var
+$ mkfs.ext4 /dev/sda3 // boot
+$ mkfs.ext4 /dev/sda4 // home
+$ mkfs.ext4 /dev/sda5 // var
 $ mkswap /dev/sda1 // swap
 $ swapon /dev/sda1
 $ swapon -s
 
 // mount partitions
 $ mount /dev/sda2 /mnt 
-$ mkdir /mnt/home
-$ mkdir /mnt/var
-$ mount /dev/sda3 /mnt/home
-$ mount /dev/sda4 /mnt/var
+$ mkdir /mnt/boot /mnt/home /mnt/var
+$ mount /dev/sda3 /mnt/boot
+$ mount /dev/sda4 /mnt/home
+$ mount /dev/sda5 /mnt/var
 
 // select mirror
-$ vim /etc/pacman.d/mirrolist // put the links of your country above the others
+$ vi /etc/pacman.d/mirrolist // place the links of your country above the others
 
 // install base system
-$ pacstrap /mnt base base-devel git gvim tmux 'grub or syslinux'
+$ pacstrap /mnt base base-devel bash-completion git gvim tmux 'grub or syslinux'
 
 // generate fstab
 $ genfsta -U -p /mnt >> /mnt/etc/fstab
-$ vim /mnt/etc/fstab // only for checking
+$ vi /mnt/etc/fstab // only for checking
 
 // configurate base system
 $ arch-chroot /mnt
@@ -74,15 +67,17 @@ $ hwclock --systohc --utc
 
 // hostname
 $ echo 'your_hostname'> /etc/hostname
-$ vim /etc/hosts // replace 'localhost' with 'your_hostname' // there's no need for this anymore 
+$ vi /etc/hosts // replace 'localhost' with 'your_hostname' // there's no need for this anymore 
 
 // install wireless packages
 $ pacman -S wireless_tools wpa_supplicant wpa_actiond dialog
--- // if using network manager
+ // if using network manager
 $ pacman -S networkmanager
+ // if using wicd
+$ pacman -S wicd
 
-// configure pacman
-$ vim /etc/pacman.conf // uncomment '[multilib]' and 'include = /etc/pacmand.d/mirrorlist'
+// configure multilib repo for pacman
+$ vi /etc/pacman.conf // uncomment '[multilib]' and 'include = /etc/pacmand.d/mirrorlist'
 $ pacman -Sy
 
 // add user
@@ -91,7 +86,7 @@ $ passwd 'your_username' // password for the user
 $ passwd // password for the root
 
 // allow user to use sudo
-$ EDITOR=vim visudo // uncomment '&wheels' or add "'your_username' ALL=(ALL) ALL" under 'root ALL=(ALL) ALL'
+$ EDITOR=vi visudo // uncomment '&wheels' or add "'your_username' ALL=(ALL) ALL" under 'root ALL=(ALL) ALL'
 
 // install grub
   // if grub
@@ -102,6 +97,9 @@ $ syslinux-install_update -i -a -m
 
 // finish installation
 $ exit
+	// if syslinux was installed 
+	$ cp linux/boot/syslinux/syslinux.cfg /mnt/boot/syslinux/
+$ umount /dev/sda5
 $ umount /dev/sda4
 $ umount /dev/sda3
 $ umount /dev/sda2
@@ -139,6 +137,8 @@ $ sudo systemctl enable NetworkManager
 $ sudo systemctl start NetworkManager
 $ nmcli dev wifi
 $ nmcli dev wifi connect 'ssid' password 'psk'
+  // if using wicd
+  $ wicd-curses
 // ethernet
 $ ip a
 $ sudo systemctl enable dhcpd.service // if needed
