@@ -9,6 +9,9 @@
 #     wpa-psk   your_password_here
 #   ...
 #
+# ifup wlp6s0
+# ifconfig wlp6s0
+#
 
 # add a {}
 # modification m {}
