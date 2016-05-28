@@ -1,3 +1,15 @@
+#
+# connect wireless after netinstall
+# vi /etc/network/interfaces
+#   
+#   ...
+#   auto wlp6s0
+#   iface wlp6s0 inet dhcp
+#     wpa-ssid  your_ssid_here
+#     wpa-psk   your_password_here
+#   ...
+#
+
 # add a {}
 # modification m {}
 
